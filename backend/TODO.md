@@ -1,0 +1,1 @@
+- [x] Validar por usuario existente

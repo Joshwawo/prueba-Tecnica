@@ -30,6 +30,7 @@ const StudensSchema = new Schema<Users>(
     email: {
       type: String,
       required: true,
+      unique:true
     },
     userName: {
       type: String,
@@ -56,7 +57,6 @@ StudensSchema.pre("findOneAndUpdate", async function (next) {
 
   // verificar si el campo "password" está presente en el objeto de actualización
   if (update?.password) {
-    // encriptar la password antes de continuar con la actualización
     const salt = await bcrypt.genSalt(10);
     update.password = await bcrypt.hash(update.password,salt);
   }
@@ -65,9 +65,9 @@ StudensSchema.pre("findOneAndUpdate", async function (next) {
 });
 
 StudensSchema.methods.comparePassword = async function (
-  passwordFormulario: string | Buffer
+  passwordForm: string | Buffer
 ) {
-  return await bcrypt.compare(passwordFormulario, this.password);
+  return await bcrypt.compare(passwordForm, this.password);
 };
 
 const studensModel = model("studen", StudensSchema);

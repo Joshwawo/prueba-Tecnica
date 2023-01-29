@@ -14,3 +14,9 @@ export interface loginPersonal {
   password: string;
   email: string;
 }
+
+export interface Curse {
+  name:string,
+  duration:string,
+  description:string
+}
