@@ -1,11 +1,11 @@
 import { Studens } from "../types/PersonaTypes";
 import studenModel from "../models/Student";
-import {generateJwt} from '../helpers/generateJwt'
-import {loginPersonal} from '../types/PersonaTypes'
+import { generateJwt } from "../helpers/generateJwt";
+import { loginPersonal } from "../types/PersonaTypes";
 
 export const getStudenServ = async () => {
   try {
-    const studens = await studenModel.find().populate("course calif")
+    const studens = await studenModel.find().populate("course calif");
     if (studens.length <= 0) {
       const error = new Error("No hay estudiantes");
       return error;
@@ -68,33 +68,53 @@ export const deleteStudenServ = async (id: string) => {
   }
 };
 
+export const loginStudenServ = async (body: loginPersonal) => {
+  const { email, password } = body;
 
-export const loginStudenServ = async (body:loginPersonal) => {
-  const {email,password} = body
+  try {
+    const user = await studenModel.findOne({ email: email });
 
-  const user = await studenModel.findOne({email})
-  if(!user){
-    const error = new Error("El usuario no existe")
-    return error
-  }
-  if(await user.comparePassword(password)){
-    return {
-      _id: user._id,
-      name:user.name,
-      email:user.email,
-      token: generateJwt(user._id)
+    
+
+    if (!user) {
+      const error = new Error("Usuario o  contraseña son incorrectos");
+      return error;
     }
-  }else{
-    const error = new Error("La contraseña es incorrecta")
-    throw error
-  }
+    console.log("Hola 2");
+    if (await user.comparePassword(password)) {
+      return {
+        _id: user._id,
+        name: user.name,
+        email: user.email,
+        isAdmin: user.isAdmin,
+        token: generateJwt(user._id),
+      };
+    } else {
+      const error = new Error("Usuario o  contraseña son incorrectos");
 
-}
+      throw error;
+    }
+  } catch (error) {
+    // console.log("Srv", error);
+    return error;
+  }
+};
+
+const loginHelper = async (id: string) => {
+  try {
+    const search = await studenModel.findById(id);
+    if (!search) return;
+    return search;
+  } catch (error) {
+    const errors = new Error("El estudiante no existe");
+    throw errors;
+  }
+};
 
 //*Helpers
 const searchStudenHelper = async (id: string) => {
   try {
-    const search = await studenModel.findById(id).populate("course calif")
+    const search = await studenModel.findById(id).populate("course calif");
     if (!search) return;
     return search;
   } catch (error) {

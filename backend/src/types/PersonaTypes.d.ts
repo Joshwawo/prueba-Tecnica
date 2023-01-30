@@ -1,3 +1,4 @@
+import {Request} from 'express'
 export interface Studens {
   name: string;
   lastName: string;
@@ -42,4 +43,8 @@ export interface calif {
   course: object | string,
   calif: string | number []
   studen: string | object
+}
+
+export interface RequestToken extends Request {
+  user?: any;
 }

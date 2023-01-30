@@ -7,12 +7,14 @@ import {
   updateStudenCtrl,
   deleteStudenCtrl,
   loginPersonalCtrl,
+  perfilCtrl,
 } from "../controllers/studenCtrl";
 
 const router = Router();
 
 router.route("/").get(useAuth, getStundenCtrl).post(addStudenCtrl);
 router.post("/login", loginPersonalCtrl);
+router.get("/perfil", useAuth, perfilCtrl);
 router
   .route("/:id")
   .get(useAuth, getStudenByIdCtrl)

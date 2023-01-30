@@ -1,34 +1,43 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import './App.css'
+import { Routes, Route } from "react-router-dom";
+import AuthLayout from "./components/AuthLayout";
+import Login from "./pages/Login";
+import { ToastContainer } from "react-toastify";
+import Error404 from "./pages/Error/Error404";
+import RouteAuth from "./pages/RouteAuth";
+import Teachers from "./pages/teachers/Teachers";
+import Students from "./pages/students/Students";
+import {SysProvider} from './context/SysProvider'
+import Navbar from "./components/Navbar";
+import AddStuden from "./pages/teachers/AddStuden";
+import SeeStudents from "./pages/teachers/SeeStudents";
+import StudentById from "./pages/students/StudentById";
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
     <div className="App">
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src="/vite.svg" className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <SysProvider>
+        <Navbar/>
+        <div className="mt-20">
+          <Routes>
+            <Route path="/" element={<AuthLayout />}>
+              <Route index element={<Login />} />
+              <Route path="*" element={<Error404 />} />
+            </Route>
+            <Route path="/inicio" element={<RouteAuth/>}>
+              <Route path="*" element={<Error404 />} />
+              <Route path="maestros" element={<Teachers />} />
+              <Route path="alumnos" element={<Students/>} />
+              <Route path="nuevo-alumno" element={<AddStuden/>} />
+              <Route path="ver-alumnos" element={<SeeStudents/>} />
+              <Route path="ver-alumnos/:id" element={<StudentById/>} />
+            </Route>
+          </Routes>
+        </div>
+      </SysProvider>
+
+      <ToastContainer />
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
