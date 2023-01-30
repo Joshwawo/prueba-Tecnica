@@ -1,11 +1,11 @@
-import { Users } from "../types/PersonaTypes";
+import { Studens } from "../types/PersonaTypes";
 import studenModel from "../models/Student";
 import {generateJwt} from '../helpers/generateJwt'
 import {loginPersonal} from '../types/PersonaTypes'
 
 export const getStudenServ = async () => {
   try {
-    const studens = await studenModel.find();
+    const studens = await studenModel.find().populate("course calif")
     if (studens.length <= 0) {
       const error = new Error("No hay estudiantes");
       return error;
@@ -25,7 +25,7 @@ export const getStudentByIdServ = async (id: string) => {
   }
 };
 
-export const postStudenServ = async (studen: Users) => {
+export const postStudenServ = async (studen: Studens) => {
   try {
     const studenExist = await studenModel.findOne({ email: studen.email });
 
@@ -43,7 +43,7 @@ export const postStudenServ = async (studen: Users) => {
   }
 };
 
-export const updateStudenServ = async (studen: Users, id: string) => {
+export const updateStudenServ = async (studen: Studens, id: string) => {
   try {
     const upStuden = await searchStudenHelperUpdate(id, studen);
     return upStuden;
@@ -94,7 +94,7 @@ export const loginStudenServ = async (body:loginPersonal) => {
 //*Helpers
 const searchStudenHelper = async (id: string) => {
   try {
-    const search = await studenModel.findById(id);
+    const search = await studenModel.findById(id).populate("course calif")
     if (!search) return;
     return search;
   } catch (error) {

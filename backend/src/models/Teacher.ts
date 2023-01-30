@@ -1,8 +1,8 @@
 import { Schema, model } from "mongoose";
 import bcrypt from "bcrypt";
-import { Users } from "../types/PersonaTypes";
+import { Studens } from "../types/PersonaTypes";
 
-const TeacherSchema = new Schema<Users>(
+const TeacherSchema = new Schema<Studens>(
   {
     name: {
       type: String,

@@ -105,7 +105,7 @@ const searchTeacherHelperUpdate = async (id: string, body: any) => {
     if (!search) return;
     return search;
   } catch (error) {
-    const errors = new Error("El estudiante no existe");
+    const errors = new Error("El maestro no existe");
     throw errors;
   }
 }

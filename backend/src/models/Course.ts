@@ -1,7 +1,7 @@
 import { Schema, model } from "mongoose";
-import { Curse } from "../types/PersonaTypes";
+import { Course } from "../types/PersonaTypes";
 
-const CourseSchema = new Schema<Curse>(
+const CourseSchema = new Schema<Course>(
   {
     name: {
       type: String,

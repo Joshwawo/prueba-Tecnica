@@ -6,7 +6,7 @@ import { router } from "./routes";
 import { dbConnect } from "./config/mongo";
 
 const app: Application = express();
-const PORT = process.env.PORT || 3001;
+const PORT:number = Number(process.env.PORT) || 3001;
 
 
 app.use(express.json());

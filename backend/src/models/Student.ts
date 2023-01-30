@@ -1,8 +1,8 @@
 import { Schema, model } from "mongoose";
-import { Users } from "../types/PersonaTypes";
+import { Studens } from "../types/PersonaTypes";
 import bcrypt from "bcrypt";
 
-const StudensSchema = new Schema<Users>(
+const StudensSchema = new Schema<Studens>(
   {
     name: {
       type: String,
@@ -30,12 +30,28 @@ const StudensSchema = new Schema<Users>(
     email: {
       type: String,
       required: true,
-      unique:true
+      unique: true,
     },
     userName: {
       type: String,
       required: true,
     },
+    isAdmin: {
+      type: Boolean,
+      default: false,
+    },
+    course: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "course",
+      },
+    ],
+    calif: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "calif",
+      },
+    ],
   },
   {
     timestamps: true,
@@ -53,12 +69,12 @@ StudensSchema.pre("save", async function (next) {
 
 StudensSchema.pre("findOneAndUpdate", async function (next) {
   // obtener el objeto de actualización
-  const update:any = this.getUpdate();
+  const update: any = this.getUpdate();
 
   // verificar si el campo "password" está presente en el objeto de actualización
   if (update?.password) {
     const salt = await bcrypt.genSalt(10);
-    update.password = await bcrypt.hash(update.password,salt);
+    update.password = await bcrypt.hash(update.password, salt);
   }
 
   next();
