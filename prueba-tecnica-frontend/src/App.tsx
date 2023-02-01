@@ -7,16 +7,16 @@ import RouteAuth from "./pages/RouteAuth";
 import Teachers from "./pages/teachers/Teachers";
 import Students from "./pages/students/Students";
 import {SysProvider} from './context/SysProvider'
-import Navbar from "./components/Navbar";
 import AddStuden from "./pages/teachers/AddStuden";
 import SeeStudents from "./pages/teachers/SeeStudents";
 import StudentById from "./pages/students/StudentById";
+import StudenPerfil from "./pages/students/StudenPerfil";
 
 function App() {
   return (
     <div className="App">
       <SysProvider>
-        <Navbar/>
+        
         <div className="mt-20">
           <Routes>
             <Route path="/" element={<AuthLayout />}>
@@ -29,6 +29,8 @@ function App() {
               <Route path="alumnos" element={<Students/>} />
               <Route path="nuevo-alumno" element={<AddStuden/>} />
               <Route path="ver-alumnos" element={<SeeStudents/>} />
+              <Route path="mi-perfil/:id" element={<StudenPerfil/>} />
+              <Route path="editar-alumno/:id" element={<AddStuden/>} />
               <Route path="ver-alumnos/:id" element={<StudentById/>} />
             </Route>
           </Routes>

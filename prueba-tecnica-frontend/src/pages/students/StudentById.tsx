@@ -1,50 +1,19 @@
 import { useParams } from "react-router-dom";
 import useSystem from "../../context/SysProvider";
-import { useEffect, useState } from "react";
-import { StudentPerfil } from "../../types/users";
-import { clientAxios } from "../../helpers/clienteAxios";
+import { useEffect } from "react";
 import { formatDates } from "../../helpers/FormatDate";
+import Spinner from "../../components/Spinner";
 
 const StudentById = () => {
-  const [student, setStudent] = useState<StudentPerfil>({} as StudentPerfil);
-  const [loadingSys, setLoadingsys] = useState<boolean>(false);
-
-  // const { getStudentById, student, loadingSys } = useSystem();
+  const { getStudentById, student, loadingSys } = useSystem();
   const { id } = useParams<{ id: string }>();
-  // useEffect(() => {
-  //   getStudentById(String(id));
-  // }, []);
-
   useEffect(() => {
-    const getStudentById = async () => {
-      setLoadingsys(true);
-      try {
-        const token = localStorage.getItem("token");
-        if (!token) {
-          return;
-        }
-        const { data } = await clientAxios.get<StudentPerfil>(`/studen/${id}`, {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        });
-        setStudent(data);
-      } catch (error) {
-        console.log(error);
-      } finally {
-        setLoadingsys(false);
-      }
-    };
-    getStudentById();
+    getStudentById(String(id));
   }, []);
 
   if (loadingSys) {
-    return <p>Cargando...</p>;
+    return <Spinner />;
   }
-
-  console.log(student?.course?.length > 0 ? "Si " : "No hay materias");
-  console.log(student?.dateBirth);
 
   return (
     <div className="container mx-auto">
@@ -53,7 +22,7 @@ const StudentById = () => {
       <p>Matricula: {student?.userName}</p>
       <p>Sexo: {student?.sex}</p>
       <p>Correo: {student?.email}</p>
-      <p>Fecha de nacimiento: {formatDates(student?.dateBirth)}</p>
+      <p>Fecha de nacimiento: {formatDates(`${student?.dateBirth}`)}</p>
       <div className="mt-4">
         Materias:{" "}
         {student?.course?.length > 0

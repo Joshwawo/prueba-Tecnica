@@ -69,7 +69,7 @@ export interface AllStudents {
   name:      string;
   password:  string;
   lastName:  string;
-  sex:       Sex;
+  sex:       Sex | string;
   dateBirth: string;
   email:     string;
   userName:  string;

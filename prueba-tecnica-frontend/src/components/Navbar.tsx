@@ -1,10 +1,18 @@
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import useAuth from "../context/AuthProvider";
+import useSystem from "../context/SysProvider";
 
 const Navbar = () => {
   const [navbar, setNavbar] = useState(false);
-  const { auth } = useAuth();
+  const { auth, logout } = useAuth();
+  const { logoutSys } = useSystem();
+
+  const handlelogout = () => {
+    logout();
+    logoutSys();
+  };
+
   return (
     <nav className="w-full bg-white shadow fixed top-0">
       <div className="justify-between px-4 mx-auto lg:max-w-7xl md:items-center md:flex md:px-8">
@@ -74,11 +82,19 @@ const Navbar = () => {
                   <li className="text-gray-600 hover:text-blue-600">
                     <Link to={`/inicio/nuevo-alumno`}>Agregar alumno</Link>
                   </li>
+
                   <li className="text-gray-600 hover:text-blue-600">
                     <Link to={`/inicio/ver-alumnos`}>Ver Alumnos</Link>
                   </li>
                 </>
               ) : null}
+
+              <li className="text-gray-600 hover:text-blue-600">
+                <Link to={`/inicio/mi-perfil/${auth._id}`}>Mi perfil</Link>
+              </li>
+              <li className="text-gray-600 hover:text-red-600">
+                <button onClick={() => handlelogout()}>Cerrar Sesion </button>
+              </li>
             </ul>
           </div>
         </div>

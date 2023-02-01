@@ -1,20 +1,54 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { clientAxios } from "../../helpers/clienteAxios";
+import useSystem from "../../context/SysProvider";
 
 const AddStuden = () => {
+  const [idx, setIdx] = useState<string | null>(null);
   const [name, setName] = useState<string>("");
-  const [lastName, setLastName] = useState<string>("");
-  const [sex, setSex] = useState<string>("");
-  const [dateBirth, setDateBirth] = useState<string>("");
-  const [userName, setUserName] = useState<string>("");
-  const [email, setEmail] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
+  const [lastName, setLastName] = useState("");
+  const [sex, setSex] = useState("");
+  const [dateBirth, setDateBirth] = useState("");
+  const [userName, setUserName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const params = useParams();
+
+  const { student, submitStudent, getStudentById } = useSystem();
+
+  useEffect(() => {
+    if (params.id) {
+      getStudentById(String(params.id));
+      console.log("Entro al useEffect");
+    }
+  }, []);
+
+  useEffect(() => {
+    if (params.id !== undefined && student) {
+      setIdx(student._id);
+      setName(student.name);
+      setLastName(student.lastName);
+      setSex(student.sex);
+      setDateBirth(student.dateBirth?.split("T")[0]);
+      setUserName(student.userName);
+      setEmail(student.email);
+      setPassword(student.password);
+    } else {
+      setIdx(null);
+      setName("");
+      setLastName("");
+      setSex("");
+      setDateBirth("");
+      setUserName("");
+      setEmail("");
+      setPassword("");
+    }
+  }, [params, student]);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log("Formulario enviado");
     if (
       [name, lastName, sex, dateBirth, userName, email, password].includes("")
     ) {
@@ -32,7 +66,9 @@ const AddStuden = () => {
     }
 
     try {
-      const { data } = await clientAxios.post("/studen", {
+      // toast.success(data.message);
+      submitStudent({
+        id: idx,
         name,
         lastName,
         sex,
@@ -41,16 +77,16 @@ const AddStuden = () => {
         email,
         password,
       });
-      toast.success(data.message);
-      setName("");
-      setLastName("");
-      setSex("");
-      setDateBirth("");
-      setUserName("");
-      setEmail("");
-      setPassword("");
+      setIdx(null);
+      // setName("");
+      // setLastName("");
+      // setSex("");
+      // setDateBirth("");
+      // setUserName("");
+      // setEmail("");
+      // setPassword("");
 
-      console.log(data);
+      // console.log(data);
     } catch (error) {
       console.log(error);
     }
@@ -58,7 +94,10 @@ const AddStuden = () => {
 
   return (
     <div className="pt-5 ">
-      <h1 className="text-center text-3xl font-bold">Agregar alumnos</h1>
+      <h1 className="text-center text-3xl font-bold">
+        {" "}
+        {params.id ? "Actualizar" : "Agregar"} alumnos{" "}
+      </h1>
       <form
         className="mt-5 bg-white shadow rounded-lg p-10 max-w-xl mx-auto mb-5"
         onSubmit={handleSubmit}
@@ -182,8 +221,8 @@ const AddStuden = () => {
 
         <input
           type="submit"
-          value="Agregar alumno"
-          className="bg-blue-700 uppercase w-full mb-5 py-3 text-white font-bold rounded hover:cursor-pointer hover:bg-blue-800 transition-colors"
+          value={params.id ? "Actualizar" : "Agregar"}
+          className={`${ params.id ? 'bg-blue-700 hover:bg-blue-800' : 'bg-green-700 hover:bg-green-800'}  uppercase w-full mb-5 py-3 text-white font-bold rounded hover:cursor-pointer transition-colors`}
         />
       </form>
     </div>

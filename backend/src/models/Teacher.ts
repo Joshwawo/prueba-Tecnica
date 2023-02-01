@@ -38,7 +38,7 @@ const TeacherSchema = new Schema<Studens>(
     isAdmin: {
       type: Boolean,
       required: true,
-      default: false,
+      default: true,
     },
   },
   {

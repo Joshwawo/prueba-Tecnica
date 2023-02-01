@@ -1,5 +1,6 @@
 import { Outlet, Navigate } from "react-router-dom";
 import useAuth from "../context/AuthProvider";
+import Navbar from "../components/Navbar";
 const RouteAuth = () => {
   const { auth, loading } = useAuth();
   //  console.log(auth)
@@ -16,7 +17,11 @@ const RouteAuth = () => {
   return (
     <>
       {auth?._id ? (
-        <Outlet />
+        
+        <>
+        <Navbar/>
+          <Outlet />
+        </>
       ) : (
         <Navigate to="/" />
         // <Outlet />

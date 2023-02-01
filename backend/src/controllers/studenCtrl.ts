@@ -33,7 +33,7 @@ export const addStudenCtrl = async (req: Request, res: Response) => {
   try {
     const response = await postStudenServ(req.body);
     if (response instanceof Error) {
-      return res.json({ message: response.message });
+      return res.status(400).json({ message: response.message });
     }
     res.json(response);
   } catch (error) {
@@ -42,13 +42,29 @@ export const addStudenCtrl = async (req: Request, res: Response) => {
 };
 
 export const updateStudenCtrl = async (req: Request, res: Response) => {
-  const response = await updateStudenServ(req.body, String(req.params.id));
-  res.json(response);
+  try {
+    const response = await updateStudenServ(req.body, req.params.id);
+    if (response instanceof Error) {
+      return res.status(400).json({ message: response.message });
+    }
+    res.json(response);
+  } catch (error:any) {
+    return res.status(400).json({ message: error.message });
+  }
 };
 
 export const deleteStudenCtrl = async (req: Request, res: Response) => {
-  const response = await deleteStudenServ(req.params.id)
-  res.json(response);
+ try {
+    const response = await deleteStudenServ(req.params.id);
+    if (response instanceof Error) {
+      return res.status(400).json({ message: response.message });
+    }
+    res.json(response);
+  
+ } catch (error:any) {
+  console.log(error)
+  return res.status(400).json({ message: error.message });
+ }
 };
 
 export const loginPersonalCtrl = async (req: Request, res: Response) => {

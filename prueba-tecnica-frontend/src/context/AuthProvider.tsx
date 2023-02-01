@@ -11,6 +11,7 @@ interface AuthContexTypes {
   loading: boolean;
   auth: any;
   setAuth: React.Dispatch<React.SetStateAction<object>>;
+  logout: () => void;
 }
 
 const AuthContext = createContext<AuthContexTypes | null>(null);
@@ -44,12 +45,18 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
     authUser();
   }, []);
 
+  const logout = () => {
+    setAuth({});
+    localStorage.removeItem("token");
+  }
+
   return (
     <AuthContext.Provider
       value={{
         auth,
         setAuth,
         loading,
+        logout,
       }}
     >
       {children}

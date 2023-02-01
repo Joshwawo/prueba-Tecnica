@@ -2,8 +2,8 @@ import { useState, useEffect } from "react";
 import useAuth from "../context/AuthProvider";
 import { Link, useNavigate } from "react-router-dom";
 import { clientAxios } from "../helpers/clienteAxios";
-import {toast} from 'react-toastify'
-import 'react-toastify/dist/ReactToastify.css'
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Login = () => {
   const [email, setEmail] = useState<string>("");
@@ -11,7 +11,7 @@ const Login = () => {
 
   const { setAuth } = useAuth();
 
-  const  navigate = useNavigate()
+  const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -35,8 +35,8 @@ const Login = () => {
 
       localStorage.setItem("token", data.token);
       // console.log(data)
-      setAuth(data)
-      data.isAdmin ? navigate('/inicio/maestros') : navigate('/inicio/alumnos')
+      setAuth(data);
+      data.isAdmin ? navigate("/inicio/maestros") : navigate("/inicio/alumnos");
       toast.success(`Bienvenido ${data.name}`, {
         position: "top-left",
         autoClose: 5000,
@@ -46,24 +46,22 @@ const Login = () => {
         draggable: true,
         progress: undefined,
         theme: "light",
-        });
-     
-    } catch (error:any) {
+      });
+    } catch (error: any) {
       console.log(error.response.data.message);
-      toast.error(error.response.data.message)
+      toast.error(error.response.data.message);
     }
   };
 
   return (
     <div>
       <>
-        <p className="text-blue-500 font-black text-6xl capitalize">
+        <p className="text-blue-500 font-black text-5xl capitalize">
           Inciar sesión
         </p>
-
         <form
           onSubmit={handleSubmit}
-          className="mt-10 bg-white shadow rounded-lg p-10 max-w-xl mx-auto 
+          className="mt-10
           "
         >
           <div className="my-5">
