@@ -10,7 +10,7 @@ import useAuth from '../middlewares/useAuth'
 
 const router = Router();
 
-router.route("/").get(getTeacherCtrl).post(addTeacherCtrl);
+router.route("/").get(useAuth,getTeacherCtrl).post(addTeacherCtrl);
 router
   .route("/:id")
   .get(useAuth,getTeacherByIdCtrl)

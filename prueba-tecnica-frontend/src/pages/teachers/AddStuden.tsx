@@ -21,7 +21,6 @@ const AddStuden = () => {
   useEffect(() => {
     if (params.id) {
       getStudentById(String(params.id));
-      console.log("Entro al useEffect");
     }
   }, []);
 
@@ -197,6 +196,7 @@ const AddStuden = () => {
             onChange={(e) => setSex(e.target.value)}
             className="bg-gray-50 border mt-3  border-gray-300 text-gray-900  rounded-lg block w-full p-2.5 outline-none "
           >
+            <option value="">Seleccione una opción</option>
             <option value="masculino">Masculino</option>
             <option value="femenino">Femenino</option>
           </select>

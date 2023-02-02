@@ -6,6 +6,7 @@ import {
   updateStudenServ,
   deleteStudenServ,
   loginStudenServ,
+  addCourseStudenServ,
 } from "../services/studen.services";
 import {RequestToken} from '../types/PersonaTypes'
 
@@ -91,5 +92,19 @@ export const perfilCtrl = async (req: RequestToken, res: Response) => {
     
   } catch (error) {
     console.log(error)
+  }
+};
+
+
+export const addCourseStudenCtrl = async (req: Request, res: Response) => {
+  try {
+    // console.log(req.body)
+    const response = await addCourseStudenServ(req.params.id, req.body);
+    if (response instanceof Error) {
+      return res.status(400).json({ message: response.message });
+    }
+    res.json(response);
+  } catch (error:any) {
+    return res.status(400).json({ message: error.message });
   }
 };

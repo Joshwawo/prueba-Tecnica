@@ -38,11 +38,9 @@ export const postCourseServ = async (course: Course) => {
 
     const newCourse = new courseModel(course);
 
-    await newCourse.save();
+    const newCourseSaved = await newCourse.save();
 
-    return {
-      message: "Curso creado correctamente",
-    };
+    return newCourseSaved;
   } catch (error) {
     throw error;
   }
@@ -66,7 +64,7 @@ export const deleteCourseServ = async (id: string) => {
       const error = new Error("El curso no existe");
       return error;
     }
-    console.log(course);
+    // console.log(course);
     return {
       message: "Courso eliminado correctamente",
     };

@@ -25,6 +25,7 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
       const getToken = localStorage.getItem("token");
       if (!getToken) {
         setLoading(false);
+        console.log('No hay token')
         return;
       }
       try {

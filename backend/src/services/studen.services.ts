@@ -1,6 +1,8 @@
 import { Studens } from "../types/PersonaTypes";
 import studenModel from "../models/Student";
-import teacherModel from '../models/Teacher'
+import teacherModel from "../models/Teacher";
+import courseModel from "../models/Course";
+
 import { generateJwt } from "../helpers/generateJwt";
 import { loginPersonal } from "../types/PersonaTypes";
 
@@ -37,9 +39,6 @@ export const postStudenServ = async (studen: Studens) => {
     const newStuden = new studenModel(studen);
     const studentSaved = await newStuden.save();
     return studentSaved;
-    // return {
-    //   message: "Estudiante creado correctamente",
-    // };
   } catch (error) {
     throw error;
   }
@@ -62,8 +61,6 @@ export const updateStudenServ = async (studen: Studens, id: string) => {
   }
 };
 
-;
-
 export const deleteStudenServ = async (id: string) => {
   try {
     const studen = await studenModel.findOneAndDelete({ _id: id });
@@ -80,7 +77,46 @@ export const deleteStudenServ = async (id: string) => {
   }
 };
 
-const findUser = async (email: string) => {
+export const addCourseStudenServ = async (studenId: string, body: any) => {
+  try {
+    console.log("Estudiante: ", studenId);
+    console.log("body", body.course);
+    const studenExist = await studenModel.findOne({ _id: studenId });
+    if (!studenExist) {
+      const error = new Error("El alumno no existe");
+      return error;
+    }
+
+    const courseExist = await courseModel.findOne({ _id: body.course });
+    if (!courseExist) {
+      const error = new Error("El curso no existe");
+      return error;
+    }
+
+    const studenAlReadyAddCourse = await studenModel.findOne({
+      _id: studenId,
+      course: body.course,
+    });
+
+    if (studenAlReadyAddCourse) {
+      const error = new Error("El alumno ya esta inscrito en este curso");
+      return error;
+    }
+
+    const studenAddCourse = await studenModel.findOneAndUpdate(
+      { _id: studenId },
+      { $push: { course: body.course } },
+      { new: true }
+    );
+
+    return studenAddCourse;
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+};
+
+const findUserHelper = async (email: string) => {
   const student = await studenModel.findOne({ email });
   if (student) {
     return student;
@@ -97,7 +133,7 @@ export const loginStudenServ = async (body: loginPersonal) => {
   const { email, password } = body;
 
   try {
-    const user = await findUser(email);
+    const user = await findUserHelper(email);
 
     if (!user) {
       const error = new Error("Usuario o  contraseña son incorrectos");
@@ -115,16 +151,12 @@ export const loginStudenServ = async (body: loginPersonal) => {
       const error = new Error("Usuario o  contraseña son incorrectos");
 
       throw error;
-      
     }
   } catch (error) {
+    console.log("Catch error:");
     return error;
   }
 };
-
-
-
-
 
 //*Helpers
 const searchStudenHelper = async (id: string) => {

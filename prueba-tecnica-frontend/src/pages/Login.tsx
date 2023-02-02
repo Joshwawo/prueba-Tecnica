@@ -15,7 +15,6 @@ const Login = () => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log("Formulario enviado");
 
     if ([email, password].includes("")) {
       toast.error("Todos los campos son obligatorios");

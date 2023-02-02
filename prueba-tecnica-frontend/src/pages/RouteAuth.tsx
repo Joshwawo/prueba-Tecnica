@@ -1,6 +1,7 @@
 import { Outlet, Navigate } from "react-router-dom";
 import useAuth from "../context/AuthProvider";
 import Navbar from "../components/Navbar";
+import Spinner from "../components/Spinner";
 const RouteAuth = () => {
   const { auth, loading } = useAuth();
   //  console.log(auth)
@@ -8,7 +9,7 @@ const RouteAuth = () => {
     return (
       <div className="">
         <div className="flex justify-center items-center h-screen">
-          <p className="text-red-600 text-4xl">Cargando....</p>
+          <Spinner/>
         </div>
       </div>
     );

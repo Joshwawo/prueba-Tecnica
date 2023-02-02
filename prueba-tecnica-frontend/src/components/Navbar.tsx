@@ -21,7 +21,7 @@ const Navbar = () => {
             <Link
               to={`${auth.isAdmin ? "/inicio/maestros" : "/inicio/alumnos"}`}
             >
-              <h2 className="text-2xl font-bold">Sistema escolar</h2>
+              <h2 className="text-2xl font-semibold text-gray-900">Sistema escolar</h2>
             </Link>
             <div className="md:hidden">
               <button
@@ -74,20 +74,14 @@ const Navbar = () => {
                     auth.isAdmin ? "/inicio/maestros" : "/inicio/alumnos"
                   }`}
                 >
-                  Home
+                 Inicio
                 </Link>
               </li>
-              {auth.isAdmin ? (
-                <>
-                  <li className="text-gray-600 hover:text-blue-600">
-                    <Link to={`/inicio/nuevo-alumno`}>Agregar alumno</Link>
-                  </li>
-
-                  <li className="text-gray-600 hover:text-blue-600">
-                    <Link to={`/inicio/ver-alumnos`}>Ver Alumnos</Link>
-                  </li>
-                </>
-              ) : null}
+              {auth.isAdmin ? null : (
+                <li className="text-gray-600 hover:text-blue-600">
+                  <Link to={`/inicio/mi-perfil/${auth._id}`}>Mi perfil</Link>
+                </li>
+              )}
 
               <li className="text-gray-600 hover:text-blue-600">
                 <Link to={`/inicio/mi-perfil/${auth._id}`}>Mi perfil</Link>

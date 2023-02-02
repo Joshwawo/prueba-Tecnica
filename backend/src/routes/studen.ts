@@ -8,6 +8,7 @@ import {
   deleteStudenCtrl,
   loginPersonalCtrl,
   perfilCtrl,
+  addCourseStudenCtrl,
 } from "../controllers/studenCtrl";
 
 const router = Router();
@@ -15,6 +16,7 @@ const router = Router();
 router.route("/").get(useAuth, getStundenCtrl).post(addStudenCtrl);
 router.post("/login", loginPersonalCtrl);
 router.get("/perfil", useAuth, perfilCtrl);
+router.post("/addcourse/:id", useAuth, addCourseStudenCtrl);
 router
   .route("/:id")
   .get(useAuth, getStudenByIdCtrl)

@@ -10,7 +10,7 @@ const SeeStudents = () => {
       (t) => (
         <div className="divo">
           <p className=" text-gray-500 text-center pb-3">
-            ¿Estas seguro que quieres eliminarlo?  <strong> {name}</strong>{" "}
+            ¿Estas seguro que quieres eliminarlo? <strong> {name}</strong>{" "}
           </p>
           <div className="flex justify-center">
             <button
@@ -47,7 +47,7 @@ const SeeStudents = () => {
       <div className="grid md:grid-cols-2 md:gap-5">
         {students?.map((student) => (
           <div
-            className="bg-gray-100 mx-4 md:mx-0 mt-5 py-5 px-4 flex justify-between items-start rounded-md "
+            className="bg-gray-50 mx-4 md:mx-0 mt-5 py-5 px-4 flex justify-between items-start rounded-md "
             key={student._id}
           >
             <div className="font-semibold">
@@ -57,7 +57,7 @@ const SeeStudents = () => {
             </div>
             <div className="font-semibold text-center space-y-2 ">
               <Link
-                className=" text-green-500 hover:text-green-700 bg-green-200 flex pl-2 items-center rounded-md"
+                className=" text-yellow-500 hover:text-yellow-700 bg-yellow-100 flex pl-2 items-center rounded-md"
                 to={`/inicio/ver-alumnos/${student._id}`}
               >
                 <svg
@@ -75,12 +75,31 @@ const SeeStudents = () => {
                   />
                 </svg>
 
-                <p className=" px-2 py-1  rounded-sm ">
-                  Ver estudiante
-                </p>
+                <p className=" px-2 py-1  rounded-sm ">Ir al estudiante</p>
               </Link>
               <Link
-                className="text-cyan-500 hover:text-cyan-700 bg-cyan-200 flex pl-2 items-center rounded-md"
+                className="text-emerald-500 hover:text-emerald-700 bg-emerald-100 flex pl-2 items-center rounded-md"
+                to={`/inicio/materias-estudiante/${student._id}`}
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={1.5}
+                  stroke="currentColor"
+                  className="w-6 h-6"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M19 7.5v3m0 0v3m0-3h3m-3 0h-3m-2.25-4.125a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zM4 19.235v-.11a6.375 6.375 0 0112.75 0v.109A12.318 12.318 0 0110.374 21c-2.331 0-4.512-.645-6.374-1.766z"
+                  />
+                </svg>
+
+                <p className=" px-2 py-1 rounded-sm ">Añardir materias</p>
+              </Link>
+              <Link
+                className="text-cyan-500 hover:text-cyan-700 bg-cyan-100 flex pl-2 items-center rounded-md"
                 to={`/inicio/editar-alumno/${student._id}`}
               >
                 <svg
