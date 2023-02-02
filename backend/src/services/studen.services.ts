@@ -79,8 +79,6 @@ export const deleteStudenServ = async (id: string) => {
 
 export const addCourseStudenServ = async (studenId: string, body: any) => {
   try {
-    console.log("Estudiante: ", studenId);
-    console.log("body", body.course);
     const studenExist = await studenModel.findOne({ _id: studenId });
     if (!studenExist) {
       const error = new Error("El alumno no existe");
@@ -116,19 +114,7 @@ export const addCourseStudenServ = async (studenId: string, body: any) => {
   }
 };
 
-const findUserHelper = async (email: string) => {
-  const student = await studenModel.findOne({ email });
-  if (student) {
-    return student;
-  }
 
-  const teacher = await teacherModel.findOne({ email });
-  if (teacher) {
-    return teacher;
-  }
-
-  return null;
-};
 export const loginStudenServ = async (body: loginPersonal) => {
   const { email, password } = body;
 
@@ -159,6 +145,21 @@ export const loginStudenServ = async (body: loginPersonal) => {
 };
 
 //*Helpers
+//Este se utiliza para buscar un estudiante o maestro y devolverlo
+const findUserHelper = async (email: string) => {
+  const student = await studenModel.findOne({ email });
+  if (student) {
+    return student;
+  }
+
+  const teacher = await teacherModel.findOne({ email });
+  if (teacher) {
+    return teacher;
+  }
+
+  return null;
+};
+
 const searchStudenHelper = async (id: string) => {
   try {
     const search = await studenModel.findById(id).populate("course calif");

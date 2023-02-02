@@ -47,7 +47,7 @@ const SeeStudents = () => {
       <div className="grid md:grid-cols-2 md:gap-5">
         {students?.map((student) => (
           <div
-            className="bg-gray-50 mx-4 md:mx-0 mt-5 py-5 px-4 flex justify-between items-start rounded-md "
+            className="bg-slate-50 mx-4 md:mx-0 mt-5 py-5 px-4 flex justify-between items-start rounded-md "
             key={student._id}
           >
             <div className="font-semibold">

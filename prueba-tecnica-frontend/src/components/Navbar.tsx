@@ -21,7 +21,9 @@ const Navbar = () => {
             <Link
               to={`${auth.isAdmin ? "/inicio/maestros" : "/inicio/alumnos"}`}
             >
-              <h2 className="text-2xl font-semibold text-gray-900">Sistema escolar</h2>
+              <h2 className="text-2xl font-semibold text-gray-900">
+                Sistema escolar
+              </h2>
             </Link>
             <div className="md:hidden">
               <button
@@ -61,7 +63,7 @@ const Navbar = () => {
             </div>
           </div>
         </div>
-        <div className="">
+        <div className="capitalize text-lg text-gray-600">
           <div
             className={`flex-1 justify-self-center pb-3 mt-8 md:block md:pb-0 md:mt-0 ${
               navbar ? "block" : "hidden"
@@ -74,18 +76,18 @@ const Navbar = () => {
                     auth.isAdmin ? "/inicio/maestros" : "/inicio/alumnos"
                   }`}
                 >
-                 Inicio
+                  Inicio
                 </Link>
               </li>
+
               {auth.isAdmin ? null : (
                 <li className="text-gray-600 hover:text-blue-600">
-                  <Link to={`/inicio/mi-perfil/${auth._id}`}>Mi perfil</Link>
+                  <Link to={`/inicio/estudiante/mi-perfil/${auth._id}`}>
+                    Mi perfil
+                  </Link>
                 </li>
               )}
 
-              <li className="text-gray-600 hover:text-blue-600">
-                <Link to={`/inicio/mi-perfil/${auth._id}`}>Mi perfil</Link>
-              </li>
               <li className="text-gray-600 hover:text-red-600">
                 <button onClick={() => handlelogout()}>Cerrar Sesion </button>
               </li>

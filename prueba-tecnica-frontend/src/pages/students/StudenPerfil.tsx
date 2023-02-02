@@ -6,15 +6,21 @@ import { useEffect } from "react";
 const StudenPerfil = () => {
   const { id } = useParams<{ id: string }>();
   const { getStudentById, student, loadingSys } = useSystem();
-  console.log("Componente StudentPerfil.tsx");
 
   useEffect(() => {
     getStudentById(String(id));
   }, []);
-  console.log(student)
+  console.log(student);
   // console.log(id);
 
-  return <div>StudenPerfil</div>;
+  return (
+    <div className="container mx-auto">
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Tempore,
+        ratione.
+      </p>
+    </div>
+  );
 };
 
 export default StudenPerfil;

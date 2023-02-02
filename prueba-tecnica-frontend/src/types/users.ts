@@ -74,8 +74,8 @@ export interface AllStudents {
   email:     string;
   userName:  string;
   isAdmin:   boolean;
-  course:    any[];
-  calif:     any[];
+  course:    Course[];
+  calif:     Calif[];
   createdAt: string;
   updatedAt: string;
   __v:       number;

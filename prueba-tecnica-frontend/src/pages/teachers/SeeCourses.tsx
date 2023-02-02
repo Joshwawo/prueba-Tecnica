@@ -50,8 +50,8 @@ const SeeCourses = () => {
         {courses.length > 0 ? (
           <div className="">
             <div className="relative overflow-x-auto">
-              <table className="w-full text-sm text-left">
-                <thead>
+              <table className="w-full text-sm text-left ">
+                <thead className="bg-gray-200">
                   <tr className="text-base">
                     <th scope="col" className="px-6 py-3">
                       Nombre

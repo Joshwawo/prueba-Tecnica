@@ -20,9 +20,9 @@ const AddCourseToStudent = () => {
   return (
     <div className="container mx-auto">
       <div className="mt-10 md:mt-0 text-center">
-        <p className="my-10 pt-10">Dar de alta materias </p>
-        <form className="flex justify-center" onSubmit={handleSubmit}>
-          <select onChange={(e) => setCourseName(e.target.value)}>
+        <p className="my-10 pt-10 text-2xl">Dar de alta materias al alumno </p>
+        <form className="flex justify-center gap-5 text-xl" onSubmit={handleSubmit}>
+          <select className="outline-none" onChange={(e) => setCourseName(e.target.value)}>
             <option value="">Selecciona una materia</option>
             {courses?.map((course) => (
               <option value={course._id} key={course._id}>{course.name}</option>

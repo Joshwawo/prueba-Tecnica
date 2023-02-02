@@ -1,4 +1,5 @@
-import { Routes, Route } from "react-router-dom";
+import {useEffect} from 'react'
+import { Routes, Route, useLocation } from "react-router-dom";
 import AuthLayout from "./components/AuthLayout";
 import Login from "./pages/Login";
 import { ToastContainer } from "react-toastify";
@@ -16,6 +17,15 @@ import SeeCourses from "./pages/teachers/SeeCourses";
 import AddCourseToStudent from "./pages/teachers/AddCourseToStudent";
 
 function App() {
+
+  const location = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location.pathname]);
+
+
+
   return (
     <div className="App">
       <SysProvider>
@@ -31,7 +41,8 @@ function App() {
               <Route path="alumnos" element={<Students />} />
               <Route path="nuevo-alumno" element={<AddStuden />} />
               <Route path="ver-alumnos" element={<SeeStudents />} />
-              <Route path="mi-perfil/:id" element={<StudenPerfil />} />
+              <Route path="estudiante/mi-perfil/:id" element={<StudentById />} />
+              <Route path="maestro/mi-perfil/:id" element={<StudenPerfil />} />
               <Route path="editar-alumno/:id" element={<AddStuden />} />
               <Route path="ver-alumnos/:id" element={<StudentById />} />
               <Route path="ver-materias" element={<SeeCourses/>} />
